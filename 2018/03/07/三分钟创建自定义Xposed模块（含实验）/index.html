@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image010.jpg">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image011.jpg">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image013.jpg">
-<meta property="og:updated_time" content="2018-03-07T08:00:38.941Z">
+<meta property="og:updated_time" content="2018-03-07T08:42:43.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三分钟创建自定义Xposed模块（含实验）">
 <meta name="twitter:description" content="0x1 背景Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。 现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。 尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模">
@@ -353,10 +353,10 @@
 <p>这里有两种方法：</p>
 <p>1、使用正则表达式，hook能够匹配的所有方法。</p>
 <p>（其实Xposed并没有要求钩子和方法一一对应，钩子可以一对多，也可以复用）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newMyXposedHook().hook(clz,<span class="string">"text2show"</span>);</span><br><span class="line"><span class="comment">//newMyXposedHook().hook(clz,".*");</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyXposedHook().hook(clz,<span class="string">"text2show"</span>);</span><br><span class="line"><span class="comment">//new MyXposedHook().hook(clz,".*");</span></span><br></pre></td></tr></table></figure>
 <p><img src="/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image010.jpg" alt="image.png"></p>
 <p>2、反射获取方法，进行精确hook</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newMyXposedHook().hook(clz.getDeclaredMethods()[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyXposedHook().hook(clz.getDeclaredMethods()[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image011.jpg" alt="image.png"></p>
 <h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>编译模块，然后安装，使用Xposed框架加载，重启框架。</p>
 <p>加载模块后可见：</p>

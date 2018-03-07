@@ -342,10 +342,10 @@
 <p>这里有两种方法：</p>
 <p>1、使用正则表达式，hook能够匹配的所有方法。</p>
 <p>（其实Xposed并没有要求钩子和方法一一对应，钩子可以一对多，也可以复用）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newMyXposedHook().hook(clz,<span class="string">"text2show"</span>);</span><br><span class="line"><span class="comment">//newMyXposedHook().hook(clz,".*");</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyXposedHook().hook(clz,<span class="string">"text2show"</span>);</span><br><span class="line"><span class="comment">//new MyXposedHook().hook(clz,".*");</span></span><br></pre></td></tr></table></figure>
 <p><img src="/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image010.jpg" alt="image.png"></p>
 <p>2、反射获取方法，进行精确hook</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newMyXposedHook().hook(clz.getDeclaredMethods()[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyXposedHook().hook(clz.getDeclaredMethods()[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/03/07/三分钟创建自定义Xposed模块（含实验）/clip_image011.jpg" alt="image.png"></p>
 <h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>编译模块，然后安装，使用Xposed框架加载，重启框架。</p>
 <p>加载模块后可见：</p>
