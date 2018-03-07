@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Xposed教程," />
 
 
 
@@ -79,16 +79,32 @@
 
 
 
-<meta name="description" content="技术、感想、吐槽，随便写一写。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="山野间的疯猴子">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="0x1 背景Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。 现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。 尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模">
+<meta name="keywords" content="Xposed教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三分钟创建自定义Xposed模块（含实验）">
+<meta property="og:url" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/index.html">
 <meta property="og:site_name" content="山野间的疯猴子">
-<meta property="og:description" content="技术、感想、吐槽，随便写一写。">
+<meta property="og:description" content="0x1 背景Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。 现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。 尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image012.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image001.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image002.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image003.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image004.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image005.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image006.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image007.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image008.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image009.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image010.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image011.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image013.jpg">
+<meta property="og:updated_time" content="2018-03-07T07:15:38.652Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="山野间的疯猴子">
-<meta name="twitter:description" content="技术、感想、吐槽，随便写一写。">
+<meta name="twitter:title" content="三分钟创建自定义Xposed模块（含实验）">
+<meta name="twitter:description" content="0x1 背景Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。 现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。 尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/三分钟创建自定义Xposed模块（含实验）/clip_image012.jpg">
 
 
 
@@ -118,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/07/三分钟创建自定义Xposed模块（含实验）/"/>
 
 
 
 
 
-  <title>山野间的疯猴子</title>
+  <title>三分钟创建自定义Xposed模块（含实验） | 山野间的疯猴子</title>
   
 
 
@@ -143,8 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +232,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/07/三分钟创建自定义Xposed模块（含实验）/" itemprop="url">三分钟创建自定义Xposed模块（含实验）</a></h1>
+          <h1 class="post-title" itemprop="name headline">三分钟创建自定义Xposed模块（含实验）</h1>
         
 
         <div class="post-meta">
@@ -301,9 +314,7 @@
       
 
       
-        
-          
-            <h3 id="0x1-背景"><a href="#0x1-背景" class="headerlink" title="0x1 背景"></a>0x1 背景</h3><p>Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。</p>
+        <h3 id="0x1-背景"><a href="#0x1-背景" class="headerlink" title="0x1 背景"></a>0x1 背景</h3><p>Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。</p>
 <p>现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。</p>
 <p>尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模块的创建和编写过程有一定麻烦，而且Xposed API也仅仅进行了基本的封装，因此编写Xposed模块也就有了一点难度。</p>
 <p>如果会写Java就会写Xposed模块多好？</p>
@@ -376,8 +387,6 @@
 <p> <strong>Xposed编写那些事</strong></p>
 <p><a href="http://www.freebuf.com/articles/terminal/114910.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/terminal/114910.html</a></p>
 
-          
-        
       
     </div>
     
@@ -392,14 +401,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Xposed教程/" rel="tag"># Xposed教程</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -409,10 +424,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -420,6 +436,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -440,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,6 +521,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x1-背景"><span class="nav-number">1.</span> <span class="nav-text">0x1 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x2-实验"><span class="nav-number">2.</span> <span class="nav-text">0x2 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验目标"><span class="nav-number">2.1.</span> <span class="nav-text">实验目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：创建Xposed模块"><span class="nav-number">2.2.</span> <span class="nav-text">步骤一：创建Xposed模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤二：创建Xposed钩子"><span class="nav-number">2.3.</span> <span class="nav-text">步骤二：创建Xposed钩子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤三：将钩子挂在目标方法上"><span class="nav-number">2.4.</span> <span class="nav-text">步骤三：将钩子挂在目标方法上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果"><span class="nav-number">2.5.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x3-总结"><span class="nav-number">3.</span> <span class="nav-text">0x3 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x4-附件与参考"><span class="nav-number">4.</span> <span class="nav-text">0x4 附件与参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -625,6 +670,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
