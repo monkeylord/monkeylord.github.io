@@ -87,20 +87,20 @@
 <meta property="og:site_name" content="山野间的疯猴子">
 <meta property="og:description" content="0x1 背景渗透测试经常遇到加固应用，按照一般教程编写Xposed插件会Hook不到，因此许多人认为加固能够防Hook，不懂如何Hook加固后的应用。 本篇文章将教大家，如何使用简单的方式Hook加固后的应用。 Hook加固应用Hook不到的原因是，Xposed模块中handleLoadPackage被调用时壳没有启动，所以并没有将应用的类装载进VM。解决方法也相当简单，只需要挑选一个已经装在进V">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片1.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片2.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片3.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片4.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片5.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片6.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片7.jpg">
-<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片8.jpg">
-<meta property="og:updated_time" content="2018-03-29T09:43:29.784Z">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片1.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片2.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片3.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片4.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片5.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片6.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片7.png">
+<meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片8.png">
+<meta property="og:updated_time" content="2018-03-29T09:47:13.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三分钟学会用Hook加固后应用（含实验）">
 <meta name="twitter:description" content="0x1 背景渗透测试经常遇到加固应用，按照一般教程编写Xposed插件会Hook不到，因此许多人认为加固能够防Hook，不懂如何Hook加固后的应用。 本篇文章将教大家，如何使用简单的方式Hook加固后的应用。 Hook加固应用Hook不到的原因是，Xposed模块中handleLoadPackage被调用时壳没有启动，所以并没有将应用的类装载进VM。解决方法也相当简单，只需要挑选一个已经装在进V">
-<meta name="twitter:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.jpg">
+<meta name="twitter:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.png">
 
 
 
@@ -315,27 +315,27 @@
 <p>Hook加固应用Hook不到的原因是，Xposed模块中handleLoadPackage被调用时壳没有启动，所以并没有将应用的类装载进VM。解决方法也相当简单，只需要挑选一个已经装在进VM的时机再Hook即可。</p>
 <p>在<a href="https://github.com/monkeylord/XposedTemplateForAS" target="_blank" rel="noopener">XposedAndroid Studio模板</a>中包含Timing模板，就是用来解决Hook时机问题的。</p>
 <h3 id="0x2-实验"><a href="#0x2-实验" class="headerlink" title="0x2 实验"></a>0x2 实验</h3><h4 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h4><p>一个加固后的应用</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.png" alt="image.png"></p>
 <p>反编译看一看</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片1.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片1.png" alt="image.png"></p>
 <p>我们要Hook其中的<strong>com.timanetworks.timasync.android.base.AsyncSender</strong>类的<strong>send</strong>方法（通过打印堆栈或其他方式获得的类名方法名），来分析其网络协议。</p>
 <h4 id="步骤一：创建Xposed模块和钩子"><a href="#步骤一：创建Xposed模块和钩子" class="headerlink" title="步骤一：创建Xposed模块和钩子"></a>步骤一：创建Xposed模块和钩子</h4><p>新建空工程创建Xposed模块</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片2.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片2.png" alt="image.png"></p>
 <p>包名从AndroidManifest.xml中获得。</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片3.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片3.png" alt="image.png"></p>
 <p>创建一个Xposed钩子，使用预制钩子Tracer</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片4.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片4.png" alt="image.png"></p>
 <h4 id="步骤二：使用Timing模板选择Hook时机"><a href="#步骤二：使用Timing模板选择Hook时机" class="headerlink" title="步骤二：使用Timing模板选择Hook时机"></a>步骤二：使用Timing模板选择Hook时机</h4><p>在Java源码处右键，新建-&gt;Xposed-&gt;Timing，加入Timing代码。</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片5.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片5.png" alt="image.png"></p>
 <p>在模块入口处使用Timing，第二个参数表示是否相应时机只执行一次，我们并不需要在这些时机反复执行，因此填true。</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片6.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片6.png" alt="image.png"></p>
 <p>然后实现对应时机的方法即可，此处我用到了onNewActivity，即新Activity创建时，一般也代表着相关类早已加载完成。然后将钩子在此时机里挂载目标上。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Timing(loadPackageParam,<span class="keyword">true</span>)&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewActivity</span><span class="params">(XC_MethodHook.MethodHookParam param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onNewActivity(param);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      Class clz = Class.forName(<span class="string">"com.timanetworks.timasync.android.base.AsyncSender"</span>, </span><br><span class="line">                                <span class="keyword">false</span>,</span><br><span class="line">                                classLoader);</span><br><span class="line">      <span class="keyword">new</span> MyXposedHook().hook(clz, <span class="string">"send"</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">      XposedBridge.log(e.getLocalizedMessage());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>编译模块，然后安装，使用Xposed框架加载，重启框架。</p>
 <p>打开应用，随便输入账号密码（如18888888888/123456）后点击登陆。</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片7.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片7.png" alt="image.png"></p>
 <p>切出查看Xposed日志，如图所见，方法调用被成功打印出来。</p>
-<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片8.jpg" alt="image.png"></p>
+<p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片8.png" alt="image.png"></p>
 <h3 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h3><p><strong>关于Xposed的Hook</strong></p>
 <p>基于Xposed的实现原理，其只能Hook已经真实存在的方法，如果某个方法在内存中并不存在（或者暂时还不存在），Xposed是无法进行预先Hook的。</p>
 <p><strong>关于Timing模板</strong></p>
