@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片6.png">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片7.png">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片8.png">
-<meta property="og:updated_time" content="2018-03-29T09:47:13.184Z">
+<meta property="og:updated_time" content="2018-03-29T09:52:03.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三分钟学会用Hook加固后应用（含实验）">
 <meta name="twitter:description" content="0x1 背景渗透测试经常遇到加固应用，按照一般教程编写Xposed插件会Hook不到，因此许多人认为加固能够防Hook，不懂如何Hook加固后的应用。 本篇文章将教大家，如何使用简单的方式Hook加固后的应用。 Hook加固应用Hook不到的原因是，Xposed模块中handleLoadPackage被调用时壳没有启动，所以并没有将应用的类装载进VM。解决方法也相当简单，只需要挑选一个已经装在进V">
@@ -316,9 +316,9 @@
 <p>在<a href="https://github.com/monkeylord/XposedTemplateForAS" target="_blank" rel="noopener">XposedAndroid Studio模板</a>中包含Timing模板，就是用来解决Hook时机问题的。</p>
 <h3 id="0x2-实验"><a href="#0x2-实验" class="headerlink" title="0x2 实验"></a>0x2 实验</h3><h4 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h4><p>一个加固后的应用</p>
 <p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片0.png" alt="image.png"></p>
-<p>反编译看一看</p>
+<p>反编译看一看，可见是360加固，修复起来应该有点麻烦。</p>
 <p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片1.png" alt="image.png"></p>
-<p>我们要Hook其中的<strong>com.timanetworks.timasync.android.base.AsyncSender</strong>类的<strong>send</strong>方法（通过打印堆栈或其他方式获得的类名方法名），来分析其网络协议。</p>
+<p>我们要Hook其中的<strong>com.timanetworks.timasync.android.base.AsyncSender</strong>类的<strong>send</strong>方法（通过脱壳、打印堆栈或其他方式获得的类名方法名），来分析其网络协议。</p>
 <h4 id="步骤一：创建Xposed模块和钩子"><a href="#步骤一：创建Xposed模块和钩子" class="headerlink" title="步骤一：创建Xposed模块和钩子"></a>步骤一：创建Xposed模块和钩子</h4><p>新建空工程创建Xposed模块</p>
 <p><img src="/2018/03/29/三分钟学会用Hook加固后应用（含实验）/图片2.png" alt="image.png"></p>
 <p>包名从AndroidManifest.xml中获得。</p>
