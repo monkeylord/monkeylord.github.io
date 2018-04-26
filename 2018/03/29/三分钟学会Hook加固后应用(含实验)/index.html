@@ -725,7 +725,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: window.location.pathname, 
+            id: decodeURI(window.location.pathname), 
             owner: 'monkeylord',
             repo: 'monkeylord.github.io',
             
