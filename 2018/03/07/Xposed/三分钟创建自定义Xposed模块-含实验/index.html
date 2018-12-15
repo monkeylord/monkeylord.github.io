@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/Xposed/三分钟创建自定义Xposed模块-含实验/clip_image010.jpg">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/Xposed/三分钟创建自定义Xposed模块-含实验/clip_image011.jpg">
 <meta property="og:image" content="https://monkeylord.github.io/2018/03/07/Xposed/三分钟创建自定义Xposed模块-含实验/clip_image013.jpg">
-<meta property="og:updated_time" content="2018-12-15T05:05:31.893Z">
+<meta property="og:updated_time" content="2018-12-15T05:47:28.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三分钟创建自定义Xposed模块-含实验">
 <meta name="twitter:description" content="0x1 背景Xposed模块常用于Android渗透测试，比如使用Inspeckage进行基本分析，使用SSLunpinning来绕过证书绑定。 现在Xposed已经比较成熟，有很多模块可用，然而做渗透测试有时并没有现成模块可用，比如说处理加密，绕过一些特定检查，输出一些非基本类型数据，或者做一些调用，这就需要自行编写模块解决。 尽管模块编写已经并不新鲜，然而对于不熟悉Xposed模块编写的人，模">
@@ -404,30 +404,24 @@
 <p>加载模块后可见：</p>
 <p><img src="/2018/03/07/Xposed/三分钟创建自定义Xposed模块-含实验/clip_image013.jpg" alt="image.png"></p>
 <p>HelloWorld App的文本已经被修改成了Hacked World。</p>
-<h3 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h3><p><strong>编写一个Xposed模块其实只需要关注三件事：</strong></p>
-<p>1、在什么时机</p>
+<h3 id="0x3-总结"><a href="#0x3-总结" class="headerlink" title="0x3 总结"></a>0x3 总结</h3><h4 id="编写一个Xposed模块其实只需要关注三件事："><a href="#编写一个Xposed模块其实只需要关注三件事：" class="headerlink" title="编写一个Xposed模块其实只需要关注三件事："></a>编写一个Xposed模块其实只需要关注三件事：</h4><p>1、在什么时机</p>
 <p>​    handleLoadPackage</p>
 <p>2、Hook谁</p>
 <p>​    com.example.monkeylord.demoapp.MainActivity.text2show</p>
 <p>3、做什么</p>
 <p>​    param.setResult(“Hacked World”);</p>
-<p><strong>方法与钩子无需一对一</strong></p>
-<p>一个钩子可以对应多个方法，钩子也可以反复复用。</p>
+<h4 id="方法与钩子无需一对一"><a href="#方法与钩子无需一对一" class="headerlink" title="方法与钩子无需一对一"></a>方法与钩子无需一对一</h4><p>一个钩子可以对应多个方法，钩子也可以反复复用。</p>
 <p>之前有人想要Hook所有方法然后报OOM，就是因为一方法一钩子导致的。</p>
 <p>其实可以只用一个钩子Hook所有方法，如果你感兴趣，可以去试试。</p>
-<p><strong>关于模板</strong></p>
-<p>Xposed Android Studio模板即是为了封装其技术实现，让分析者只需关注其逻辑。</p>
+<h4 id="关于模板"><a href="#关于模板" class="headerlink" title="关于模板"></a>关于模板</h4><p>Xposed Android Studio模板即是为了封装其技术实现，让分析者只需关注其逻辑。</p>
 <p>模板的项目地址在：<a href="https://github.com/monkeylord/XposedTemplateForAS" target="_blank" rel="noopener">https://github.com/monkeylord/XposedTemplateForAS</a></p>
 <p>其中还封装了许多便于创建Xposed模块的模块化代码，也欢迎大家上传自己封装的代码。</p>
 <p>clone以后把里面的目录拷贝到AndroidStudio安装路径下存储模板的目录即可。</p>
-<p><strong>后续我还会进一步讲解：</strong></p>
-<p>1、如何利用Xposed模块寻找应用的关键加解密方法</p>
+<h4 id="后续还会进一步讲解："><a href="#后续还会进一步讲解：" class="headerlink" title="后续还会进一步讲解："></a>后续还会进一步讲解：</h4><p>1、如何利用Xposed模块寻找应用的关键加解密方法</p>
 <p>2、如何实时篡改方法的参数及返回值</p>
 <p>3、如何Hook加固后的应用</p>
-<h3 id="0x4-附件与参考"><a href="#0x4-附件与参考" class="headerlink" title="0x4 附件与参考"></a>0x4 附件与参考</h3><p><strong>HelloWorld App</strong></p>
-<p>链接：<a href="https://pan.baidu.com/s/1dG3PjZN" target="_blank" rel="noopener">https://pan.baidu.com/s/1dG3PjZN</a> 密码：n2s0</p>
-<p> <strong>Xposed编写那些事</strong></p>
-<p><a href="http://www.freebuf.com/articles/terminal/114910.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/terminal/114910.html</a></p>
+<h3 id="0x4-附件与参考"><a href="#0x4-附件与参考" class="headerlink" title="0x4 附件与参考"></a>0x4 附件与参考</h3><h4 id="HelloWorld-App"><a href="#HelloWorld-App" class="headerlink" title="HelloWorld App"></a>HelloWorld App</h4><p>链接：<a href="https://pan.baidu.com/s/1dG3PjZN" target="_blank" rel="noopener">https://pan.baidu.com/s/1dG3PjZN</a> 密码：n2s0</p>
+<h4 id="Xposed编写那些事"><a href="#Xposed编写那些事" class="headerlink" title="Xposed编写那些事"></a>Xposed编写那些事</h4><p><a href="http://www.freebuf.com/articles/terminal/114910.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/terminal/114910.html</a></p>
 
       
     </div>
@@ -605,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x1-背景"><span class="nav-number">1.</span> <span class="nav-text">0x1 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x2-实验"><span class="nav-number">2.</span> <span class="nav-text">0x2 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验目标"><span class="nav-number">2.1.</span> <span class="nav-text">实验目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：创建Xposed模块"><span class="nav-number">2.2.</span> <span class="nav-text">步骤一：创建Xposed模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤二：创建Xposed钩子"><span class="nav-number">2.3.</span> <span class="nav-text">步骤二：创建Xposed钩子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤三：将钩子挂在目标方法上"><span class="nav-number">2.4.</span> <span class="nav-text">步骤三：将钩子挂在目标方法上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果"><span class="nav-number">2.5.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x3-总结"><span class="nav-number">3.</span> <span class="nav-text">0x3 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x4-附件与参考"><span class="nav-number">4.</span> <span class="nav-text">0x4 附件与参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x1-背景"><span class="nav-number">1.</span> <span class="nav-text">0x1 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x2-实验"><span class="nav-number">2.</span> <span class="nav-text">0x2 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验目标"><span class="nav-number">2.1.</span> <span class="nav-text">实验目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：创建Xposed模块"><span class="nav-number">2.2.</span> <span class="nav-text">步骤一：创建Xposed模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤二：创建Xposed钩子"><span class="nav-number">2.3.</span> <span class="nav-text">步骤二：创建Xposed钩子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤三：将钩子挂在目标方法上"><span class="nav-number">2.4.</span> <span class="nav-text">步骤三：将钩子挂在目标方法上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果"><span class="nav-number">2.5.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x3-总结"><span class="nav-number">3.</span> <span class="nav-text">0x3 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写一个Xposed模块其实只需要关注三件事："><span class="nav-number">3.1.</span> <span class="nav-text">编写一个Xposed模块其实只需要关注三件事：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法与钩子无需一对一"><span class="nav-number">3.2.</span> <span class="nav-text">方法与钩子无需一对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于模板"><span class="nav-number">3.3.</span> <span class="nav-text">关于模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续还会进一步讲解："><span class="nav-number">3.4.</span> <span class="nav-text">后续还会进一步讲解：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x4-附件与参考"><span class="nav-number">4.</span> <span class="nav-text">0x4 附件与参考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HelloWorld-App"><span class="nav-number">4.1.</span> <span class="nav-text">HelloWorld App</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xposed编写那些事"><span class="nav-number">4.2.</span> <span class="nav-text">Xposed编写那些事</span></a></li></ol></li></ol></div>
             
 
           </div>

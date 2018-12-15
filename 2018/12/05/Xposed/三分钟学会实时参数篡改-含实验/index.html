@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://monkeylord.github.io/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987153995.png">
 <meta property="og:image" content="https://monkeylord.github.io/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987185210.png">
 <meta property="og:image" content="https://monkeylord.github.io/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987203252.png">
-<meta property="og:updated_time" content="2018-12-15T05:09:12.611Z">
+<meta property="og:updated_time" content="2018-12-15T05:45:36.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三分钟学会实时参数篡改-含实验">
 <meta name="twitter:description" content="0x01 背景渗透测试的时候经常碰到加解密的情况，或者需要实时篡改某些参数，此时一个固定的参数/结果替换并不能满足需要。 本篇文章将教大家，如何使用简单的方式交互式实时篡改参数/返回结果。 交互式篡改的关键在于，将参数发出给测试人员，并接收结果替换回去。 一个简单的方法是建立一个简单HTTP服务器，Xposed将参数发给服务器，服务器将参数原样返回给Xposed。中间经过Burp代理，从而可以在B">
@@ -358,47 +358,38 @@
 <p>交互式篡改的关键在于，将参数发出给测试人员，并接收结果替换回去。</p>
 <p>一个简单的方法是建立一个简单HTTP服务器，Xposed将参数发给服务器，服务器将参数原样返回给Xposed。中间经过Burp代理，从而可以在Burp中拦截方法调用并编辑参数内容。</p>
 <p>在<a href="https://github.com/monkeylord/XposedTemplateForAS" target="_blank" rel="noopener">Xposed Android Studio模板</a>中包含Hook模板，其中GS_Net预制钩子即起到该作用。</p>
-<h3 id="0x02-实验"><a href="#0x02-实验" class="headerlink" title="0x02 实验"></a>0x02 实验</h3><p><strong>实验目标</strong></p>
-<p>一个非常简单的HelloWorld App （即《三分钟创建自定义Xposed模块》中的App）</p>
+<h3 id="0x02-实验"><a href="#0x02-实验" class="headerlink" title="0x02 实验"></a>0x02 实验</h3><h4 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h4><p>一个非常简单的HelloWorld App （即《三分钟创建自定义Xposed模块》中的App）</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/clip_image012.jpg" alt="image.png"></p>
 <p>反编译看一看：</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/clip_image001.jpg" alt="image.png"></p>
 <p>可见，Hello World这个字符串来自text2show方法。</p>
 <p>好，接下来我们写一个模块动态篡改这个方法的返回值。</p>
-<p><strong>步骤一：创建Xposed模块和钩子</strong></p>
-<p>新建空工程创建Xposed模块</p>
+<h4 id="步骤一：创建Xposed模块和钩子"><a href="#步骤一：创建Xposed模块和钩子" class="headerlink" title="步骤一：创建Xposed模块和钩子"></a>步骤一：创建Xposed模块和钩子</h4><p>新建空工程创建Xposed模块</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/图片2.png" alt="image.png"></p>
 <p>包名从AndroidManifest.xml中获得</p>
 <p>创建一个Xposed钩子，使用预制钩子GS_Net</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543981782881.png" alt="1543981782881"></p>
-<p><strong>步骤二：将钩子挂在目标方法上</strong></p>
-<p>新建钩子，启动回环HTTP监听，并挂在目标方法上。</p>
+<h4 id="步骤二：将钩子挂在目标方法上"><a href="#步骤二：将钩子挂在目标方法上" class="headerlink" title="步骤二：将钩子挂在目标方法上"></a>步骤二：将钩子挂在目标方法上</h4><p>新建钩子，启动回环HTTP监听，并挂在目标方法上。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> MyXposedHook(<span class="number">8888</span>)</span><br><span class="line">        .hook(<span class="string">"com.example.monkeylord.demoapp.MainActivity"</span></span><br><span class="line">                ,<span class="string">"text2show"</span></span><br><span class="line">                ,classLoader);</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543985835650.png" alt="1543985835650"></p>
-<p><strong>步骤三： 设置代理并映射回环地址</strong></p>
-<p>编译模块，安装并使用Xposed框架加载重启后。</p>
+<h4 id="步骤三：-设置代理并映射回环地址"><a href="#步骤三：-设置代理并映射回环地址" class="headerlink" title="步骤三： 设置代理并映射回环地址"></a>步骤三： 设置代理并映射回环地址</h4><p>编译模块，安装并使用Xposed框架加载重启后。</p>
 <p>配置测试机使用Burp代理（在逍遥模拟器中，10.0.2.2即为宿主机）。</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987113392.png" alt="1543987113392"></p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987097411.png" alt="1543987097411"></p>
 <p>输入命令映射回环地址，具体端口在创建钩子实例时设置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:8888 tcp:8888</span><br></pre></td></tr></table></figure>
-<p><strong>实验结果</strong></p>
-<p>打开应用，可以看到Burp中出现了该调用的结果。</p>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>打开应用，可以看到Burp中出现了该调用的结果。</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987153995.png" alt="1543987153995"></p>
 <p>打开Burp拦截功能，修改内容</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987185210.png" alt="1543987185210"></p>
 <p>修改后的内容显示在应用上。</p>
 <p><img src="/2018/12/05/Xposed/三分钟学会实时参数篡改-含实验/1543987203252.png" alt="1543987203252"></p>
-<h3 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h3><p><strong>延展Xposed功能 </strong></p>
-<p>在《三分钟创建自定义Xposed模块》中，讲述了一个Xposed钩子的三要素，即“在什么时机”、“Hook谁”、“做什么”，交互式篡改技术即是对“做什么”的拓展，利用nanoHttpD在目标进程启动了HTTP服务监听。</p>
+<h3 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h3><h4 id="延展Xposed功能"><a href="#延展Xposed功能" class="headerlink" title="延展Xposed功能"></a>延展Xposed功能</h4><p>在《三分钟创建自定义Xposed模块》中，讲述了一个Xposed钩子的三要素，即“在什么时机”、“Hook谁”、“做什么”，交互式篡改技术即是对“做什么”的拓展，利用nanoHttpD在目标进程启动了HTTP服务监听。</p>
 <p>你可以简单地用Xposed处理参数，也完全可以利用Xposed在目标进程里创建和启动各种服务，比如Socket Server、动态加载SO文件等等等。</p>
 <p>简单来说，不必局限自己的思维，只要Java能做到的，在Xposed里同样也可以做到。</p>
-<p><strong>后续我还会进一步讲解</strong></p>
-<p>1、如何利用Xposed快速寻找加解密方法。</p>
-<h3 id="0x04-附件与参考"><a href="#0x04-附件与参考" class="headerlink" title="0x04 附件与参考"></a>0x04 附件与参考</h3><p><strong>HelloWorld App</strong></p>
-<p>链接：<a href="https://pan.baidu.com/s/1dG3PjZN" target="_blank" rel="noopener">https://pan.baidu.com/s/1dG3PjZN</a> 密码：n2s0</p>
-<p><strong>之前内容</strong></p>
-<p><a href="https://monkeylord.github.io/2018/03/07/%E4%B8%89%E5%88%86%E9%92%9F%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89Xposed%E6%A8%A1%E5%9D%97%EF%BC%88%E5%90%AB%E5%AE%9E%E9%AA%8C%EF%BC%89/">三分钟创建自定义Xposed模块</a></p>
+<h4 id="后续还会进一步讲解"><a href="#后续还会进一步讲解" class="headerlink" title="后续还会进一步讲解"></a>后续还会进一步讲解</h4><p>1、如何利用Xposed快速寻找加解密方法。</p>
+<h3 id="0x04-附件与参考"><a href="#0x04-附件与参考" class="headerlink" title="0x04 附件与参考"></a>0x04 附件与参考</h3><h4 id="HelloWorld-App"><a href="#HelloWorld-App" class="headerlink" title="HelloWorld App"></a>HelloWorld App</h4><p>链接：<a href="https://pan.baidu.com/s/1dG3PjZN" target="_blank" rel="noopener">https://pan.baidu.com/s/1dG3PjZN</a> 密码：n2s0</p>
+<h4 id="之前内容"><a href="#之前内容" class="headerlink" title="之前内容"></a>之前内容</h4><p><a href="https://monkeylord.github.io/2018/03/07/%E4%B8%89%E5%88%86%E9%92%9F%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89Xposed%E6%A8%A1%E5%9D%97%EF%BC%88%E5%90%AB%E5%AE%9E%E9%AA%8C%EF%BC%89/">三分钟创建自定义Xposed模块</a></p>
 <p><a href="https://monkeylord.github.io/2018/03/29/%E4%B8%89%E5%88%86%E9%92%9F%E5%AD%A6%E4%BC%9AHook%E5%8A%A0%E5%9B%BA%E5%90%8E%E5%BA%94%E7%94%A8%EF%BC%88%E5%90%AB%E5%AE%9E%E9%AA%8C%EF%BC%89/">三分钟学会Hook加固后应用</a></p>
 
       
@@ -577,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-背景"><span class="nav-number">1.</span> <span class="nav-text">0x01 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-实验"><span class="nav-number">2.</span> <span class="nav-text">0x02 实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-总结"><span class="nav-number">3.</span> <span class="nav-text">0x03 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-附件与参考"><span class="nav-number">4.</span> <span class="nav-text">0x04 附件与参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-背景"><span class="nav-number">1.</span> <span class="nav-text">0x01 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-实验"><span class="nav-number">2.</span> <span class="nav-text">0x02 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验目标"><span class="nav-number">2.1.</span> <span class="nav-text">实验目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：创建Xposed模块和钩子"><span class="nav-number">2.2.</span> <span class="nav-text">步骤一：创建Xposed模块和钩子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤二：将钩子挂在目标方法上"><span class="nav-number">2.3.</span> <span class="nav-text">步骤二：将钩子挂在目标方法上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤三：-设置代理并映射回环地址"><span class="nav-number">2.4.</span> <span class="nav-text">步骤三： 设置代理并映射回环地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果"><span class="nav-number">2.5.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-总结"><span class="nav-number">3.</span> <span class="nav-text">0x03 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#延展Xposed功能"><span class="nav-number">3.1.</span> <span class="nav-text">延展Xposed功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续还会进一步讲解"><span class="nav-number">3.2.</span> <span class="nav-text">后续还会进一步讲解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-附件与参考"><span class="nav-number">4.</span> <span class="nav-text">0x04 附件与参考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HelloWorld-App"><span class="nav-number">4.1.</span> <span class="nav-text">HelloWorld App</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#之前内容"><span class="nav-number">4.2.</span> <span class="nav-text">之前内容</span></a></li></ol></li></ol></div>
             
 
           </div>
