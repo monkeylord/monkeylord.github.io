@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bishop Demo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src='https://unpkg.com/bsv@0.21.1/bsv.min.js'></script>
 <script src='https://unpkg.com/electrum-ecies'></script>
 <script type="text/javascript">
@@ -211,17 +214,22 @@ var loadPayments = async function(){
 
 var displayPayment=function(tx){
     var payments=document.getElementById("payments");
-    var div=document.createElement("div")
-    div.id=tx.txid;
-    div.style='border:1px dotted #000000';
-    div.append("TXID: "+tx.txid)
-    div.append(document.createElement("br"))
+    var info=document.createElement("div");
+    info.setAttribute("class","panel panel-default")
+    info.id=tx.txid;
+    info.style='border:1px dotted #000000';
+    var tx_id=document.createElement("div");
+    tx_id.setAttribute("class","panel-heading")
+    tx_id.append("TXID: "+tx.txid);
+    info.append(tx_id);
     if(tx.utxos.length>0){
-        div.append("Unhandled 未处理");
+        var div=document.createElement("div");
+        div.setAttribute("class","panel-body")
+        div.append("Status[订单状态]: Unhandled(未处理)");
         div.append(document.createElement("br"));
-        div.append("Order 订单: "+getMsg(tx.rawtx));
+        div.append("Order[订单内容]: "+getMsg(tx.rawtx));
         div.append(document.createElement("br"));
-        div.append("Satoshis 金额: "+tx.utxos[0].satoshis);
+        div.append("Satoshis[订单金额]: "+tx.utxos[0].satoshis);
         div.append(document.createElement("br"));
         var reply=document.createElement("p");
         reply.id="r_"+tx.rawtx;
@@ -266,14 +274,35 @@ var displayPayment=function(tx){
             document.getElementById("r_"+evt.srcElement.id).innerText="Reply TX: "+replies[evt.srcElement.id].toString();
         }
         div.appendChild(input);
+        info.appendChild(div);
     }
-    payments.appendChild(div);
+    payments.appendChild(info);
 }
 </script>
 </head>
 <body>
-	<h1>Simple Shop</h1>
-    <h4>A Simple Bitcoin Shop Demo.
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Bitcoin Shop</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="https://github.com/monkeylord/Bishop">Github</a></li>
+            <li><a href="bitcoin://19vyPKmuLBcoyeqbcLisNdE64QCH16wJ9B">Donation</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+    <h1>A Simple Bitcoin Shop Demo.</h1>
     <br>比特币实现的简单电子商店
     <br>All payments are handled locally, this shop only communicate with endpoint. You can save the HTML page and use it on disk.
     <br>所有的支付都在本地处理，商店对外仅访问区块链接入点。你可以将这个HTML文件保存在本地使用。
@@ -281,12 +310,10 @@ var displayPayment=function(tx){
     <br>发货是通过OP_RETURN进行的，发货的内容经过了ECIES加密，仅收货者能够通过其私钥解密。
     <br>(ElectrumSV: Address -right click-> Encrypt/decrypt messages)
     <br>在ElectrumSV钱包（或EC）里，地址上右键，加解密。
-    </h4>
+    
     <details>
     <summary>Usage 使用说明</summary>
-    <h5>Github: https://github.com/monkeylord/Bishop
-    
-    <br>Key Selling Example<br>
+    <h5>Key Selling Example<br>
     <br>以卖Key为例
     <br>1. Set your shop address and cold wallet address.
     <br>填写商店地址（Shop Address）和冷钱包地址（Cold Wallet Address）
@@ -306,17 +333,19 @@ var displayPayment=function(tx){
     </details>
     <details id="config">
     <summary>Shop Config 商店设置</summary>
-	<h4>Endpoint:</h4> <br>区块链接入点<br>
-	<input id="endpoint" type="text" value="https://bchsvexplorer.com/api"><br>
-    <h4>Shop Address</h4>(Bitcoin Address to receive payments): <br>商店地址（用于接受付款的比特币地址）<br>
-    <input id="shopaddr" type="text" value=""><br>
-    <h4>Cold Wallet Address</h4>(Bitcoin Address that store you coins. Delivery will transfer payment to this address.): <br>冷钱包地址（用于存币的比特币地址，已发货的付款会被转到这个地址。）<br>
-    <input id="storageaddr" type="text" value=""><br>
-    <h4>Shop PrivateKey</h4>(Shop Address's PrivateKey. Keep it empty, if you want to sign reply TX mannually.): <br>商店私钥（如果你不希望每次手动签名，可以填进去）<br>
-    <input id="privkey" type="text" value=""><br>
+	<b>Endpoint:</b> <br>区块链接入点<br>
+	<input class="form-control" id="endpoint" type="text" value="https://bchsvexplorer.com/api"><br>
+    <b>Shop Address</b>(Bitcoin Address to receive payments): <br>商店地址（用于接受付款的比特币地址）<br>
+    <input class="form-control" id="shopaddr" type="text" value=""><br>
+    <b>Cold Wallet Address</b>(Bitcoin Address that store you coins. Delivery will transfer payment to this address.): <br>冷钱包地址（用于存币的比特币地址，已发货的付款会被转到这个地址。）<br>
+    <input class="form-control" id="storageaddr" type="text" value=""><br>
+    <b>Shop PrivateKey</b>(Shop Address's PrivateKey. Keep it empty, if you want to sign reply TX mannually.): <br>商店私钥（如果你不希望每次手动签名，可以填进去）<br>
+    <input class="form-control" id="privkey" type="text" value=""><br>
     </details>
-	<input type="button" value="Load/Refresh Payments 加载/刷新付款" onclick="loadPayments()">
+    <br>
+	<input class="btn btn-lg btn-default" type="button" value="Load/Refresh Payments 加载/刷新付款" onclick="loadPayments()">
     <h2>Payments: 收到的付款</h2>
     <div id="payments"></div>
+    </div>
 </body>
 </html>
